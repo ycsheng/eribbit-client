@@ -1,7 +1,7 @@
 <template>
-  <div class='home-category'>
+  <div class='home-category' @mouseleave="categoryId=null">
     <ul class="menu">
-      <li v-for="item in menuList" :key="item.id" @mouseenter="categoryId=item.id">
+      <li :class="{active:categoryId==item.id}" v-for="item in menuList" :key="item.id" @mouseenter="categoryId=item.id">
         <RouterLink :to="`/category/${item.id}`">{{item.name}}</RouterLink>
         <template v-if="item.children">
           <RouterLink 
@@ -14,7 +14,8 @@
     </ul>
     <!-- 弹层 -->
     <div class="layer">
-      <h4>分类推荐 <small>根据您的购买或浏览记录推荐</small></h4>
+      <h4 v-if="currCategory">{{currCategory.id==='brand'?'品牌':'分类'}}推荐 <small>根据您的购买或浏览记录推荐</small></h4>
+      <!-- 商品展示 -->
       <ul v-if="currCategory && currCategory.goods">
         <li v-for="item in currCategory.goods" :key="item.id">
           <RouterLink to="/">
@@ -27,6 +28,19 @@
           </RouterLink>
         </li>
       </ul>
+      <!-- 品牌展示 -->
+      <ul v-if="currCategory && currCategory.brands">
+        <li class="brand" v-for="brand in currCategory.brands" :key="brand.id">
+          <RouterLink to="/">
+            <img :src="brand.picture" alt="">
+            <div class="info">
+              <p class="place"><i class="iconfont icon-dingwei"></i>{{brand.place}}</p>
+              <p class="name ellipsis">{{brand.name}}</p>
+              <p class="desc ellipsis-2">{{brand.desc}}</p>
+            </div>
+          </RouterLink>
+        </li>
+      </ul>
     </div>
   </div>
 </template>
@@ -34,10 +48,11 @@
 <script>
 import { useStore } from 'vuex'
 import { reactive, computed, ref } from 'vue' 
-import { findBrand } from "@/api/home";
+import { findBrand } from "@/api/home.js";
 
 export default {
   name: 'HomeCategory',
+  // setup默认不支持async
   setup() {
     const store = useStore()
     // 最终使用的数据 = 9个分类 + 1个品牌
@@ -68,7 +83,9 @@ export default {
     })
 
     // 获取品牌数据
-    findBrand
+    findBrand().then(data => {
+      brand.brands = data.result
+    })
 
     return {menuList, categoryId, currCategory}
   }
@@ -87,7 +104,7 @@ export default {
       padding-left: 40px;
       height: 50px;
       line-height: 50px;
-      &:hover {
+      &:hover,&.active {
         background: @xtxColor;
       }
       a {
@@ -166,6 +183,25 @@ export default {
           }
         }
       }
+      // 品牌样式
+      li.brand {
+        height: 180px;
+        a {
+          align-items: flex-start;
+          img {
+            width: 120px;
+            height: 160px;
+          }
+          .info {
+            p {
+              margin-top: 8px;
+            }
+            .place {
+              color: #999;
+            }
+          }
+        }
+      }
     }
   }
   &:hover {
@@ -173,6 +209,7 @@ export default {
       display: block;
     }
   }
+
 }
 
 </style>
