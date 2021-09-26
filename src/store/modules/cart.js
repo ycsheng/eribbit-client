@@ -1,9 +1,9 @@
 // 购物车模块
 export default {
   namespaced: true,
-  state() {
+  state () {
     return {
-      list: [],
+      list: []
     }
   }
 }

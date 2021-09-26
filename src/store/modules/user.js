@@ -2,7 +2,7 @@
 
 export default {
   namespaced: true,
-  state() {
+  state () {
     return {
       // 用户信息
       profile: {
@@ -17,7 +17,7 @@ export default {
   },
   mutations: {
     // 修改用户信息，payload就是用户信息对象
-    setUser(state, payload) {
+    setUser (state, payload) {
       state.profile = payload
     }
   }

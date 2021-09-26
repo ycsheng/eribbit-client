@@ -20,10 +20,11 @@ instance.interceptors.request.use(config => {
   // 拦截业务逻辑
   // 进行请求配置的修改
   // 如果本地又token就在头部携带
-  
+
+  // console.log(profile.token);
   // 1. 获取用户信息对象，解构写法
   const { profile } = store.state.user
-  console.log(profile.token);
+
   // 2. 判断是否有token
   if (profile.token) {
     // 3. 设置token
@@ -66,7 +67,7 @@ export default (url, method, submitData) => {
     // 2. 如果不是get请求  需要使用data来传递submitData   请求体传参
 
     // [] 设置一个动态的key, 写js表达式，js表达式的执行结果当作KEY
-      // const a = {name: 100}, a.name, a['name]
+    // const a = {name: 100}, a.name, a['name]
     // method参数：get,Get,GET  转换成小写再来判断
     // 在对象，['params']:submitData ===== params:submitData 这样理解
     [method.toLowerCase() === 'get' ? 'params' : 'data']: submitData

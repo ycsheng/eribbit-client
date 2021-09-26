@@ -1,0 +1,13 @@
+// less混入，提取公用代码
+
+// 变量，嵌套，自定义函数，内置函数
+// 选择器混入，函数混入
+
+// 鼠标经过上移阴影动画
+.hoverShadow () {
+  transition: all .5s;
+  &:hover {
+    transform: translate3d(0,-3px,0);
+    box-shadow: 0 3px 8px rgba(0,0,0,0.2);
+  }
+}
