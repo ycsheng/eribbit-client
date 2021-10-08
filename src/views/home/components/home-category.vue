@@ -4,11 +4,18 @@
       <li :class="{active:categoryId==item.id}" v-for="item in menuList" :key="item.id" @mouseenter="categoryId=item.id">
         <RouterLink :to="`/category/${item.id}`">{{item.name}}</RouterLink>
         <template v-if="item.children">
-          <RouterLink 
-            v-for="sub in item.children" 
-            :key="sub.id" 
+          <RouterLink
+            v-for="sub in item.children"
+            :key="sub.id"
             :to="`/category/sub/${sub.id}`">{{sub.name}}
-          </RouterLink> 
+          </RouterLink>
+        </template>
+        <template v-else>
+          <!-- 骨架效果 -->
+          <span>
+            <XtxSkeleton width="60px" height="18px" style="margin-right:5px" bg="rgba(255,255,255,0.2)"/>
+            <XtxSkeleton width="50px" height="18px" bg="rgba(255,255,255,0.2)" />
+          </span>
         </template>
       </li>
     </ul>
@@ -47,8 +54,8 @@
 
 <script>
 import { useStore } from 'vuex'
-import { reactive, computed, ref } from 'vue' 
-import { findBrand } from "@/api/home.js";
+import { reactive, computed, ref } from 'vue'
+import { findBrand } from "@/api/home.js"
 
 export default {
   name: 'HomeCategory',
@@ -104,7 +111,8 @@ export default {
       padding-left: 40px;
       height: 50px;
       line-height: 50px;
-      &:hover,&.active {
+      &:hover, &.active {
+        // 问题：刷新时ul颜色变化
         background: @xtxColor;
       }
       a {
@@ -211,5 +219,16 @@ export default {
   }
 
 }
-
+// 骨架动画，骨架组件的最大容器
+.xtx-skeleton {
+  animation: fade 1s linear infinite alternate;
+}
+@keyframes fade {
+  from {
+    opacity: 0.2;
+  }
+  to {
+    opacity: 1;
+  }
+}
 </style>
