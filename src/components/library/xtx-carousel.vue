@@ -34,7 +34,7 @@ export default {
     },
     duration: {
       type: Number,
-      default: 3000
+      default: 2000
     },
     autoPlay: {
       type: Boolean,
