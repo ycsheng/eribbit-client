@@ -4,8 +4,10 @@
       <template #right>
         <xtxMore path="/"/>
       </template>
-      <div style="position:relative;height:426px">
-        <Transition name="fade">
+      <div ref="target" style="position:relative;height:426px">
+        <!-- 在实现列表过渡时，如果需要过渡的元素是通过v-for渲染出来的，不能使用
+          transition 包裹，需要使用 transition-group -->
+        <Transition-group name="fade">
           <!-- 面板内容 -->
           <ul v-if="goods.length" class="goods-list">
             <li v-for="item in goods" :key="item.id">
@@ -18,7 +20,7 @@
           </ul>
           <!-- 骨架屏效果 -->
           <HomeSkeleton v-else bg="#f0f9f4"/>
-        </Transition>
+        </Transition-group>
       </div>
     </HomePanel>
   </div>
@@ -29,7 +31,7 @@ import { ref } from 'vue'
 import HomePanel from './home-panel.vue'
 import { findNew } from '@/api/home'
 import HomeSkeleton from './home-skeleton.vue'
-
+import { useLazyData } from '@/hooks/index'
 export default {
   name: 'HomeNew',
   components: {
@@ -37,11 +39,13 @@ export default {
     HomeSkeleton,
   },
   setup() {
-    const goods = ref([])
-    findNew().then((data) => {
-      goods.value = data.result
-    })
-    return {goods}
+    // const goods = ref([])
+    // findNew().then((data) => {
+    //   goods.value = data.result
+    // })
+    const target = ref(null)
+    const {result} = useLazyData(target, findNew)
+    return { target, goods: result }
   }
 }
 </script>
