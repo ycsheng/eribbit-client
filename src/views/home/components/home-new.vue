@@ -4,16 +4,22 @@
       <template #right>
         <xtxMore path="/"/>
       </template>
-      <!-- 面板内容 -->
-      <ul class="goods-list">
-        <li v-for="item in goods" :key="item.id">
-          <RouterLink :to="`/product/${item.id}`">
-            <img :src="item.picture" alt="">
-            <p class="name ellipsis">{{item.name}}</p>
-            <p class="price">&yen;{{item.price}}</p>
-          </RouterLink>
-        </li>
-      </ul>
+      <div style="position:relative;height:426px">
+        <Transition name="fade">
+          <!-- 面板内容 -->
+          <ul v-if="goods.length" class="goods-list">
+            <li v-for="item in goods" :key="item.id">
+              <RouterLink :to="`/product/${item.id}`">
+                <img :src="item.picture" alt="">
+                <p class="name ellipsis">{{item.name}}</p>
+                <p class="price">&yen;{{item.price}}</p>
+              </RouterLink>
+            </li>
+          </ul>
+          <!-- 骨架屏效果 -->
+          <HomeSkeleton v-else bg="#f0f9f4"/>
+        </Transition>
+      </div>
     </HomePanel>
   </div>
 </template>
@@ -22,11 +28,13 @@
 import { ref } from 'vue'
 import HomePanel from './home-panel.vue'
 import { findNew } from '@/api/home'
+import HomeSkeleton from './home-skeleton.vue'
 
 export default {
   name: 'HomeNew',
   components: {
     HomePanel,
+    HomeSkeleton,
   },
   setup() {
     const goods = ref([])
@@ -39,6 +47,20 @@ export default {
 </script>
 
 <style lang="less" scoped>
+// 骨架移除动画
+.fade{
+  &-leave {
+    &-active {
+      position: absolute;
+      width: 100%;
+      transition: opacity .5s .2s;
+      z-index: 1;
+    }
+    &-to {
+      opacity: 0;
+    }
+  }
+}
 .goods-list {
   display: flex;
   justify-content: space-between;

@@ -16,11 +16,11 @@
   <!-- 人气推荐 -->
   <HomeHot />
   <!-- 使用transition组件 -->
-  <button @click="show=true">显示|创建</button>
+  <!-- <button @click="show=true">显示|创建</button>
   <button @click="show=false">隐藏|移除</button>
   <Transition>
     <div v-show="show" style="width:100px;height:100px;background:red;"></div>
-  </Transition>
+  </Transition> -->
 </template>
 
 <script>
@@ -58,7 +58,7 @@ export default {
 
 // vue3和vue2不同
 // 进入 v-enter v-enter-active v-enter-to
-.v-enter-from {
+/* .v-enter-from {
   opacity: 1;
 }
 .v-enter-active {
@@ -66,6 +66,6 @@ export default {
 }
 .v-enter-to {
   opacity: 0;
-}
+} */
 // 离开 v-leave v-leave-active v-leave-to
 </style>

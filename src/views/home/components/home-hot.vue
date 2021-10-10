@@ -1,14 +1,19 @@
 <template>
   <HomePanel title="人气推荐" sub-title="人气爆款 不容错过">
-    <ul ref="pannel" class="goods-list">
-      <li v-for="item in goods" :key="item.id">
-        <RouterLink to="/">
-          <img :src="item.picture" alt="">
-          <p class="name">{{item.title}}</p>
-          <p class="desc">{{item.alt}}</p>
-        </RouterLink>
-      </li>
-    </ul>
+    <div style="position:relative;height:426px">
+      <Transition name="fade">
+        <ul v-if="goods.length" ref="pannel" class="goods-list">
+          <li v-for="item in goods" :key="item.id">
+            <RouterLink to="/">
+              <img :src="item.picture" alt="">
+              <p class="name">{{item.title}}</p>
+              <p class="desc">{{item.alt}}</p>
+            </RouterLink>
+          </li>
+        </ul>
+        <HomeSkeleton v-else bg="#f0f9f4"/>
+      </Transition>
+    </div>
   </HomePanel>
 </template>
 
@@ -16,10 +21,13 @@
 import { ref } from 'vue'
 import HomePanel from './home-panel'
 import { findHot } from '@/api/home'
+import HomeSkeleton from './home-skeleton.vue'
+
 export default {
   name: 'HomeHot',
   components: { 
-    HomePanel 
+    HomePanel,
+    HomeSkeleton,
   },
   setup() {
     const goods = ref([])
@@ -32,6 +40,19 @@ export default {
 </script>
 
 <style scoped lang='less'>
+.fade{
+  &-leave {
+    &-active {
+      position: absolute;
+      width: 100%;
+      transition: opacity .5s .2s;
+      z-index: 1;
+    }
+    &-to {
+      opacity: 0;
+    }
+  }
+}
 .goods-list {
   display: flex;
   justify-content: space-between;

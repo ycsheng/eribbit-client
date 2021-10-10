@@ -111,7 +111,8 @@ export default {
       padding-left: 40px;
       height: 50px;
       line-height: 50px;
-      &:hover, &.active {
+      // ,&.active 
+       &:hover {
         // 问题：刷新时ul颜色变化
         background: @xtxColor;
       }
