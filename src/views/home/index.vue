@@ -21,6 +21,8 @@
   <Transition>
     <div v-show="show" style="width:100px;height:100px;background:red;"></div>
   </Transition> -->
+  <!-- 热门品牌 -->
+  <HomeBrand />
 </template>
 
 <script>
@@ -29,7 +31,7 @@ import HomeCategory from './components/home-category.vue'
 import HomeBanner from './components/home-banner.vue'
 import HomeNew from './components/home-new.vue'
 import HomeHot from './components/home-hot.vue'
-
+import HomeBrand from './components/home-brand.vue'
 
 // 每使用一次就要导入，采用Vue插件的形式
 // import XtxSkeleton from '@/components/library/xtx-skeleton.vue'
@@ -40,6 +42,7 @@ export default {
     HomeBanner,
     HomeNew,
     HomeHot,
+    HomeBrand,
   },
   setup() {
     const show = ref(true)

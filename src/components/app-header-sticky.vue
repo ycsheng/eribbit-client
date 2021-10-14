@@ -31,7 +31,6 @@ setup() {
   // })
   const {y} = useWindowScroll()
   return {y}
-  return { y }
   }
 }
 </script>
