@@ -5,7 +5,8 @@
       <img :src="goods.picture" alt="" />
     </RouterLink>
     <p class="name ellipsis-2">{{goods.name}}</p>
-    <p class="desc">{{goods.desc}}</p>
+    <!-- ellipsis类解决文字溢出问题 -->
+    <p class="desc ellipsis" >{{goods.desc}}</p>
     <p class="price">&yen;{{goods.price}}</p>
     <!-- 悬浮菜单 -->
     <div class="extra">

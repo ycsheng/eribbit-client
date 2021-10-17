@@ -22,7 +22,10 @@ export const useLazyData = (target, apiFn) => {
           result.value = data.result
         })
       }
-    },
+    }, {
+      // threshold 容器和可视区交叉的占比，默认大于0
+      threshold: 0
+    }
   )
   // 返回--->数据（dom,后台数据）
   return { target, result }

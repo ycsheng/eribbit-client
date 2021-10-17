@@ -80,6 +80,8 @@ export default {
       img {
         width: 100%;
         height: 100%;
+        // 解决图片拉伸问题
+        object-fit: cover;
       }
       .label {
         width: 188px;
