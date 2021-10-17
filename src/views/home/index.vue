@@ -25,6 +25,8 @@
   <HomeBrand />
   <!-- 商品区块 -->
   <HomeProduct />
+  <!-- 最新专题 -->
+  <HomeSpecial />
 </template>
 
 <script>
@@ -35,6 +37,7 @@ import HomeNew from './components/home-new.vue'
 import HomeHot from './components/home-hot.vue'
 import HomeBrand from './components/home-brand.vue'
 import HomeProduct from './components/home-product.vue'
+import HomeSpecial from './components/home-special.vue'
 
 // 每使用一次就要导入，采用Vue插件的形式
 // import XtxSkeleton from '@/components/library/xtx-skeleton.vue'
@@ -47,6 +50,7 @@ export default {
     HomeHot,
     HomeBrand,
     HomeProduct,
+    HomeSpecial,
   },
   setup() {
     const show = ref(true)
