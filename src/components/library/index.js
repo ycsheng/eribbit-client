@@ -15,6 +15,8 @@
 import XtxSkeleton from './xtx-skeleton.vue'
 import XtxCarousel from './xtx-carousel.vue'
 import XtxMore from './xtx-more.vue'
+import XtxBrend from './xtx-bread.vue'
+import XtxBreadItem from './xtx-bread-item.vue'
 
 export default {
   install(app) {
@@ -23,7 +25,9 @@ export default {
     app.component(XtxSkeleton.name, XtxSkeleton)
     app.component(XtxCarousel.name, XtxCarousel)
     app.component(XtxMore.name, XtxMore)
-
+    app.component(XtxBrend.name, XtxBrend)
+    app.component(XtxBreadItem.name, XtxBrend)
+    
     // 定义指令
     defineDirective(app)
   }
@@ -43,7 +47,7 @@ const defineDirective = (app) => {
         if(isIntersecting) {
           // 停止观察
           observer.unobserve(el)
-          // console.log('进入可视区' );
+          console.log('进入可视区' );
           // 把指令的值设置给el的src属性，binging.value就是指令的值
           // 4. 加载失败时默认
           el.onerror = () => ({})

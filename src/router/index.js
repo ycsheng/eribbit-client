@@ -3,6 +3,7 @@ import { createRouter, createWebHashHistory } from 'vue-router'
 // 路由懒加载
 const Layout = () => import('@/views/Layout')
 const Home = () => import('@/views/home')
+const Index = () => import('@/views/category')
 
 // 路由规则
 const routes = [
@@ -13,7 +14,7 @@ const routes = [
     children: [
       {
         path: '/',
-        component: Home
+        component: Index
       }
     ]
   }
